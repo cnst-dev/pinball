@@ -19,7 +19,7 @@ namespace ConstantineSpace.PinBall
         private GameObject _currentScreen;
 
         /// <summary>
-        /// Sets the Start screen.
+        ///     Sets the Start screen.
         /// </summary>
         public void SetHomeScreen()
         {
@@ -33,7 +33,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Sets the Game screen.
+        ///     Sets the Game screen.
         /// </summary>
         public void SetGameScreen()
         {
@@ -44,7 +44,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Hides the Game screen.
+        ///     Hides the Game screen.
         /// </summary>
         public void HideGameScreen()
         {
@@ -52,7 +52,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Sets the Pause screen.
+        ///     Sets the Pause screen.
         /// </summary>
         public void SetPauseScreen()
         {
@@ -66,7 +66,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Hide the current screen.
+        ///     Hide the current screen.
         /// </summary>
         public void HideCurrentScreen()
         {

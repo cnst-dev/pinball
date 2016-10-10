@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ConstantineSpace.PinBall
+namespace ConstantineSpace.Tools
 {
     /// <summary>
     ///     Uses for sending messages for touched objects.

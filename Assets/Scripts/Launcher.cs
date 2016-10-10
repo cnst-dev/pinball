@@ -4,9 +4,6 @@ namespace ConstantineSpace.PinBall
 {
     public class Launcher : MonoBehaviour
     {
-        [SerializeField]
-        private Rigidbody2D _ball;
-
         /// <summary>
         ///     Runs when a message is received.
         /// </summary>
@@ -20,7 +17,7 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void LaunchBall()
         {
-            _ball.AddForce(new Vector2(0.0f, 20.0f), ForceMode2D.Impulse);
+            GameManager.Instance.Ball.AddForce(new Vector2(0.0f, 20.0f), ForceMode2D.Impulse);
             gameObject.SetActive(false);
         }
     }

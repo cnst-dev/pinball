@@ -10,9 +10,9 @@ namespace ConstantineSpace.Tools
         private static T _instance;
         
         /// <summary>
-        /// Singelton realization
+        ///     Singelton realization.
         /// </summary>
-        protected static T Instance
+        public static T Instance
         {
             get
             {
@@ -30,7 +30,7 @@ namespace ConstantineSpace.Tools
         }
 
         /// <summary>
-        /// Instance initialization. Use base.Awake() when overriding
+        ///     Instance initialization. Use base.Awake() when overriding.
         /// </summary>
         public virtual void Awake()
         {

@@ -1,10 +1,13 @@
-﻿using ConstantineSpace.Tools;
+﻿using System.Reflection;
+using ConstantineSpace.Tools;
 using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
     public class GameManager : Singleton<GameManager>
     {
+        public Rigidbody2D Ball;
+
         // All available game states.
         public enum GameState
         {
@@ -32,6 +35,7 @@ namespace ConstantineSpace.PinBall
         {
             ScreenManager.Instance.SetGameScreen();
             SetGameState(GameState.InGame);
+            SetTouchSender(true);
         }
 
         /// <summary>
@@ -41,6 +45,7 @@ namespace ConstantineSpace.PinBall
         {
             ScreenManager.Instance.SetPauseScreen();
             SetGameState(GameState.Paused);
+            SetTouchSender(false);
         }
 
         /// <summary>
@@ -50,16 +55,7 @@ namespace ConstantineSpace.PinBall
         {
             ScreenManager.Instance.HideCurrentScreen();
             SetGameState(GameState.InGame);
-        }
-
-        /// <summary>
-        ///     Restart the game.
-        /// </summary>
-        public void Restart()
-        {
-            Debug.Log("Restart game!");
-            ScreenManager.Instance.HideCurrentScreen();
-            SetGameState(GameState.InGame);
+            SetTouchSender(true);
         }
 
         /// <summary>
@@ -70,15 +66,25 @@ namespace ConstantineSpace.PinBall
             ScreenManager.Instance.HideGameScreen();
             ScreenManager.Instance.SetHomeScreen();
             SetGameState(GameState.Menu);
+
         }
 
         /// <summary>
         ///     Sets the game state.
         /// </summary>
-        /// <param name="state">The new sate.</param>
+        /// <param name="state">The new state.</param>
         private void SetGameState(GameState state)
         {
             CurrentState = state;
+        }
+
+        /// <summary>
+        ///     Sets sender state.
+        /// </summary>
+        /// <param name="state">The new state.</param>
+        private void SetTouchSender(bool state)
+        {
+            GetComponent<OnTouch>().enabled = state;
         }
     }
 }

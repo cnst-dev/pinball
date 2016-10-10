@@ -11,7 +11,7 @@ namespace ConstantineSpace.Tools
     public static class SimpleAnimator
     {
         /// <summary>
-        /// Scale animation.
+        ///     Scale animation.
         /// </summary>
         /// <param name="target">The target game object for the scaling animation.</param>
         /// <param name="scale">Scale to.</param>
@@ -42,7 +42,7 @@ namespace ConstantineSpace.Tools
         }
 
         /// <summary>
-        /// Fade animation.
+        ///     Fade animation.
         /// </summary>
         /// <param name="target">The target game object for the fading animation.</param>
         /// <param name="duration">The duration of the animation.</param>

@@ -14,7 +14,7 @@ namespace ConstantineSpace.PinBall
         private Color _menuBackgroundColor;
 
         /// <summary>
-        /// Initialization.
+        ///     Initialization.
         /// </summary>
         public void Start()
         {
@@ -23,7 +23,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Sets the screen active.
+        ///     Sets the screen active.
         /// </summary>
         /// <param name="screen">The screen game object.</param>
         /// <param name="state">The new state of the screen. True - active, false - inactive.</param>
@@ -41,7 +41,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// The screen scale animation from 1 to 0.
+        ///     The screen scale animation from 1 to 0.
         /// </summary>
         /// <param name="screen">The screen game object for the scaling animation.</param>
         /// <param name="duration">The duration of the animation.</param>
@@ -57,7 +57,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// The screen scale animation from 0 to 1.
+        ///     The screen scale animation from 0 to 1.
         /// </summary>
         /// <param name="screen">The screen game object for the scaling animation.</param>
         /// <param name="duration">The duration of the animation.</param>
@@ -73,7 +73,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// The background fade animation depending on the state.
+        ///     The background fade animation depending on the state.
         /// </summary>
         /// <param name="state">Fade in if true, fade out if false.</param>
         /// <param name="duration">The duration of the animation.</param>
