@@ -21,8 +21,8 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void Start()
         {
-//            ScreenManager.Instance.SetHomeScreen();
-//            SetGameState(GameState.Menu);
+            ScreenManager.Instance.SetHomeScreen();
+            SetGameState(GameState.Menu);
         }
 
         /// <summary>
