@@ -17,7 +17,7 @@ namespace ConstantineSpace.PinBall
         public GameState CurrentState { get; private set; }
 
         /// <summary>
-        /// Initialization.
+        ///     Initialization.
         /// </summary>
         private void Start()
         {
@@ -26,7 +26,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Start the level or gameplay.
+        ///     Start the level or gameplay.
         /// </summary>
         public void StartLevel()
         {
@@ -35,7 +35,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Pause the game.
+        ///     Pause the game.
         /// </summary>
         public void Pause()
         {
@@ -44,7 +44,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Continue the game.
+        ///     Continue the game.
         /// </summary>
         public void UnPause()
         {
@@ -53,7 +53,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Restart the game.
+        ///     Restart the game.
         /// </summary>
         public void Restart()
         {
@@ -63,7 +63,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Go to the Home screen.
+        ///     Go to the Home screen.
         /// </summary>
         public void GoToHome()
         {
@@ -73,7 +73,7 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        /// Sets the game state.
+        ///     Sets the game state.
         /// </summary>
         /// <param name="state">The new sate.</param>
         private void SetGameState(GameState state)

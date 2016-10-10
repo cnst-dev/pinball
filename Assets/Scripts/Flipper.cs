@@ -14,9 +14,9 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        ///     Rotates up the flipper.
+        ///     Rotates up the flipper. Runs when a message is received.
         /// </summary>
-        private void OnMouseDown()
+        private void OnTouch()
         {
             _hingeJoint2D.useMotor = true;
         }
