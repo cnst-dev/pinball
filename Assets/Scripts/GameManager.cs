@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using ConstantineSpace.Tools;
+﻿using ConstantineSpace.Tools;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ConstantineSpace.PinBall
 {
@@ -12,8 +12,7 @@ namespace ConstantineSpace.PinBall
         public enum GameState
         {
             Menu,
-            InGame,
-            Paused
+            InGame
         }
 
         // The current state of the game.
@@ -34,26 +33,6 @@ namespace ConstantineSpace.PinBall
         public void StartLevel()
         {
             ScreenManager.Instance.SetGameScreen();
-            SetGameState(GameState.InGame);
-            SetTouchSender(true);
-        }
-
-        /// <summary>
-        ///     Pause the game.
-        /// </summary>
-        public void Pause()
-        {
-            ScreenManager.Instance.SetPauseScreen();
-            SetGameState(GameState.Paused);
-            SetTouchSender(false);
-        }
-
-        /// <summary>
-        ///     Continue the game.
-        /// </summary>
-        public void UnPause()
-        {
-            ScreenManager.Instance.HideCurrentScreen();
             SetGameState(GameState.InGame);
             SetTouchSender(true);
         }
@@ -85,6 +64,14 @@ namespace ConstantineSpace.PinBall
         private void SetTouchSender(bool state)
         {
             GetComponent<OnTouch>().enabled = state;
+        }
+
+        /// <summary>
+        ///     Makes level end.
+        /// </summary>
+        public void EndLevel()
+        {
+            SceneManager.LoadScene("Main");
         }
     }
 }

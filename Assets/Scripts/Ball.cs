@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ConstantineSpace.PinBall
 {
@@ -8,7 +7,7 @@ namespace ConstantineSpace.PinBall
         private void Update()
         {
             if (!(transform.position.y < -5.0f)) return;
-            SceneManager.LoadScene("Main");
+            GameManager.Instance.EndLevel();
         }
     }
 }

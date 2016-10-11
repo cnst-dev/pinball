@@ -3,7 +3,7 @@
 namespace ConstantineSpace.Tools
 {
     /// <summary>
-    ///     Uses for sending messages for touched objects.
+    ///     Sends messages for touched objects - flippers and launcher.
     /// </summary>
     public class OnTouch : MonoBehaviour
     {

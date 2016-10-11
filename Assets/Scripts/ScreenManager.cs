@@ -12,8 +12,6 @@ namespace ConstantineSpace.PinBall
         private GameObject _homeScreen;
         [SerializeField]
         private GameObject _gameScreen;
-        [SerializeField]
-        private GameObject _pauseScreen;
 
         // The current screen game object.
         private GameObject _currentScreen;
@@ -49,20 +47,6 @@ namespace ConstantineSpace.PinBall
         public void HideGameScreen()
         {
             GuiManager.Instance.SetScreenState(_gameScreen, false);
-        }
-
-        /// <summary>
-        ///     Sets the Pause screen.
-        /// </summary>
-        public void SetPauseScreen()
-        {
-            if (GameManager.Instance.CurrentState != GameManager.GameState.InGame)
-            {
-                return;
-            }
-            GuiManager.Instance.SetScreenState(_pauseScreen, true);
-            GuiManager.Instance.FadeBackground(true);
-            _currentScreen = _pauseScreen;
         }
 
         /// <summary>
