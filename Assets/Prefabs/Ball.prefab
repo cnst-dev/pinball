@@ -22,7 +22,6 @@ GameObject:
   - 212: {fileID: 212000010045289180}
   - 50: {fileID: 50000011531973856}
   - 58: {fileID: 58000011395477472}
-  - 114: {fileID: 114000010918503858}
   m_Layer: 10
   m_Name: Ball
   m_TagString: Ball
@@ -74,17 +73,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.74
---- !u!114 &114000010918503858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010022038852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c66d47042cdfac4b8f716671dfd0dc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212000010045289180
 SpriteRenderer:
   m_ObjectHideFlags: 1
