@@ -6,6 +6,8 @@ namespace ConstantineSpace.PinBall
 {
     public class GameManager : Singleton<GameManager>
     {
+        private int _score;
+
         public Rigidbody2D Ball;
 
         // All available game states.
@@ -24,6 +26,7 @@ namespace ConstantineSpace.PinBall
         private void Start()
         {
             ScreenManager.Instance.SetHomeScreen();
+            GuiManager.Instance.SetHomeScoreTexts();
             SetGameState(GameState.Menu);
         }
 
@@ -35,6 +38,8 @@ namespace ConstantineSpace.PinBall
             ScreenManager.Instance.SetGameScreen();
             SetGameState(GameState.InGame);
             SetTouchSender(true);
+            _score = 0;
+            GuiManager.Instance.SetScoreText(_score);
         }
 
         /// <summary>
@@ -71,7 +76,18 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         public void EndLevel()
         {
+            ScoreManager.SaveScore(_score);
             SceneManager.LoadScene("Main");
+        }
+
+        /// <summary>
+        ///     Updates score.
+        /// </summary>
+        /// <param name="score">Additional score.</param>
+        public void UpdateScore(int score)
+        {
+            _score += score;
+            GuiManager.Instance.SetScoreText(_score);
         }
     }
 }

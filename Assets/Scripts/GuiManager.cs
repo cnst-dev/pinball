@@ -6,9 +6,18 @@ namespace ConstantineSpace.PinBall
 {
     public class GuiManager : Singleton<GuiManager>
     {
+
         [SerializeField]
         // The menu background image.
         private Image _menuBackground;
+
+        [Header("Text objects")]
+        [SerializeField]
+        private Text _scoreText;
+        [SerializeField]
+        private Text _lastScoreText;
+        [SerializeField]
+        private Text _bestScoreText;
 
         // The menu background start color.
         private Color _menuBackgroundColor;
@@ -96,6 +105,21 @@ namespace ConstantineSpace.PinBall
                 newColor.a = 0f;
                 StartCoroutine(SimpleAnimator.FadeAnimation(_menuBackground, duration, newColor));
             }
+        }
+
+        /// <summary>
+        ///     Sets the score text.
+        /// </summary>
+        /// <param name="newScore"> The new score.</param>
+        public void SetScoreText(int newScore)
+        {
+            _scoreText.text = newScore.ToString("0000");
+        }
+
+        public void SetHomeScoreTexts()
+        {
+            _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
+            _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());
         }
     }
 }
