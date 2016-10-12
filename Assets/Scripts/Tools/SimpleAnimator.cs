@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace ConstantineSpace.Tools
 {
     /// <summary>
-    /// Use this static methods for animations.
+    ///     Use this static methods for animations.
     /// </summary>
     public static class SimpleAnimator
     {
@@ -31,7 +31,7 @@ namespace ConstantineSpace.Tools
             while (duration > 0.0f)
             {
                 duration -= Time.deltaTime;
-                target.transform.localScale = Vector3.Lerp(targetScale, originalScale, duration / originalTime);
+                target.transform.localScale = Vector3.Lerp(targetScale, originalScale, duration/originalTime);
                 yield return 0;
             }
 
@@ -56,7 +56,7 @@ namespace ConstantineSpace.Tools
 
             var alpha = target.color.a;
 
-            for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / duration)
+            for (var t = 0.0f; t < 1.0f; t += Time.deltaTime/duration)
             {
                 var newColor = new Color(color.r, color.g, color.b, Mathf.SmoothStep(alpha, color.a, t));
                 target.color = newColor;

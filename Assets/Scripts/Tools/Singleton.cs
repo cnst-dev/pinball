@@ -3,7 +3,7 @@
 namespace ConstantineSpace.Tools
 {
     /// <summary>
-    /// Singleton pattern
+    ///     Singleton pattern.
     /// </summary>
     public class Singleton<T> : MonoBehaviour where T: Component
     {

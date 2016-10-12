@@ -11,7 +11,6 @@ namespace ConstantineSpace.Tools
 
         public void Update()
         {
-//            if (!Input.GetMouseButtonDown(0)) return;
             if (Input.GetMouseButtonDown(0))
             {
                 _startTime = Time.time;

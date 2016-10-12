@@ -1,7 +1,6 @@
 ﻿using ConstantineSpace.Tools;
 using UnityEngine;
 
-#pragma warning disable 649
 
 namespace ConstantineSpace.PinBall
 {

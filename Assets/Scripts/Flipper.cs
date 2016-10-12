@@ -6,7 +6,7 @@ namespace ConstantineSpace.PinBall
     public class Flipper : MonoBehaviour
     {
         private HingeJoint2D _hingeJoint2D;
-        
+
         /// <summary>
         ///     Initialization.
         /// </summary>

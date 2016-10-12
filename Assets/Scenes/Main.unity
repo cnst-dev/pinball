@@ -955,7 +955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d7f95cd29e54440a56042190f0e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpace: 1
   _rotationSpeed: {x: 0, y: 0, z: 1}
 --- !u!1 &585838521
 GameObject:
@@ -2888,7 +2887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d7f95cd29e54440a56042190f0e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpace: 1
   _rotationSpeed: {x: 0, y: 0, z: -1}
 --- !u!1001 &1891905789
 Prefab:
