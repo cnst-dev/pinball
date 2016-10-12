@@ -1,4 +1,5 @@
-﻿using ConstantineSpace.Tools;
+﻿using System.Collections;
+using ConstantineSpace.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ namespace ConstantineSpace.PinBall
     public class GameManager : Singleton<GameManager>
     {
         private int _score;
+        public bool UseAI;
 
         public Rigidbody2D Ball;
 
@@ -33,13 +35,20 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Start the level or gameplay.
         /// </summary>
-        public void StartLevel()
+        /// <param name="useAI">True for AI mode.</param>
+        public void StartLevel(bool useAI)
         {
+            UseAI = useAI;
             ScreenManager.Instance.SetGameScreen();
             SetGameState(GameState.InGame);
-            SetTouchSender(true);
+            SetTouchSender(!useAI);
             _score = 0;
             GuiManager.Instance.SetScoreText(_score);
+            if (useAI)
+            {
+                StartCoroutine(RandomForceLaunch(0.5f));
+                
+            }
         }
 
         /// <summary>
@@ -88,6 +97,18 @@ namespace ConstantineSpace.PinBall
         {
             _score += score;
             GuiManager.Instance.SetScoreText(_score);
+        }
+
+        /// <summary>
+        ///     Launches the ball with random force.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator RandomForceLaunch(float delay)
+        {
+            var touchTime = Random.Range(1.0f, 5.0f);
+            yield return new WaitForSeconds(delay);
+            FindObjectOfType<Launcher>().LaunchBall(touchTime);
+            
         }
     }
 }

@@ -5,10 +5,11 @@ namespace ConstantineSpace.PinBall
     public class Flipper : MonoBehaviour
     {
         private HingeJoint2D _hingeJoint2D;
+        
         /// <summary>
         ///     Initialization.
         /// </summary>
-        public void Start()
+        private void Start()
         {
             _hingeJoint2D = GetComponent<HingeJoint2D>();
         }
@@ -24,7 +25,7 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Checks position and rotates the flipper down.
         /// </summary>
-        public void Update()
+        private void Update()
         {
             if (_hingeJoint2D.limits.max > 0 && _hingeJoint2D.limitState == JointLimitState2D.UpperLimit)
             {
@@ -34,6 +35,16 @@ namespace ConstantineSpace.PinBall
             {
                 _hingeJoint2D.useMotor = false;
             }
+        }
+
+        /// <summary>
+        ///     Uses to rotate the flipper in AI mode.
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!GameManager.Instance.UseAI) return;
+            _hingeJoint2D.useMotor = true;
         }
     }
 }
