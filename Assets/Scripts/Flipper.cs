@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
@@ -20,21 +21,7 @@ namespace ConstantineSpace.PinBall
         private void OnTouch()
         {
             _hingeJoint2D.useMotor = true;
-        }
-
-        /// <summary>
-        ///     Checks position and rotates the flipper down.
-        /// </summary>
-        private void Update()
-        {
-            if (_hingeJoint2D.limits.max > 0 && _hingeJoint2D.limitState == JointLimitState2D.UpperLimit)
-            {
-                _hingeJoint2D.useMotor = false;
-            }
-            else if (_hingeJoint2D.limits.max < 0 && _hingeJoint2D.limitState == JointLimitState2D.LowerLimit)
-            {
-                _hingeJoint2D.useMotor = false;
-            }
+            StartCoroutine(RotateDown());
         }
 
         /// <summary>
@@ -45,6 +32,24 @@ namespace ConstantineSpace.PinBall
         {
             if (!GameManager.Instance.UseAI) return;
             _hingeJoint2D.useMotor = true;
+            StartCoroutine(RotateDown());
+        }
+
+        /// <summary>
+        ///     Checks position and rotates the flipper down.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator RotateDown()
+        {
+            if (_hingeJoint2D.limits.max > 0)
+            {
+                yield return new WaitUntil(() => _hingeJoint2D.limitState == JointLimitState2D.UpperLimit);
+            }
+            else
+            {
+                yield return new WaitUntil(() => _hingeJoint2D.limitState == JointLimitState2D.LowerLimit);
+            }
+            _hingeJoint2D.useMotor = false;
         }
     }
 }

@@ -556,7 +556,7 @@ Prefab:
     - target: {fileID: 233000012669970522, guid: 17cf148987bb7a142ac9b991103eab99,
         type: 2}
       propertyPath: m_Motor.m_MotorSpeed
-      value: -200
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Enabled
@@ -939,7 +939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92b66e1bf013f44f9ec950901763d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 10
 --- !u!1 &585838521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e81bf1d335c8534c8112c9018a92e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseAI: 0
   Ball: {fileID: 1690115595}
 --- !u!114 &910718633
 MonoBehaviour:
@@ -3190,7 +3190,7 @@ Prefab:
     - target: {fileID: 233000012669970522, guid: 17cf148987bb7a142ac9b991103eab99,
         type: 2}
       propertyPath: m_Motor.m_MotorSpeed
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17cf148987bb7a142ac9b991103eab99, type: 2}
