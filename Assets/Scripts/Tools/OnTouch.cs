@@ -7,14 +7,24 @@ namespace ConstantineSpace.Tools
     /// </summary>
     public class OnTouch : MonoBehaviour
     {
+        private float _startTime;
+
         public void Update()
         {
-            if (!Input.GetMouseButtonDown(0)) return;
-            var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var hit = Physics2D.Raycast(position, Vector2.zero);
-            if (hit.collider != null && hit.transform.tag == "CanTouch")
+//            if (!Input.GetMouseButtonDown(0)) return;
+            if (Input.GetMouseButtonDown(0))
             {
-               hit.transform.gameObject.SendMessage("OnTouch");
+                _startTime = Time.time;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                var touchTime = Time.time - _startTime;
+                var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var hit = Physics2D.Raycast(position, Vector2.zero);
+                if (hit.collider != null && hit.transform.tag == "CanTouch")
+                {
+                    hit.transform.gameObject.SendMessage("OnTouch", touchTime);
+                }
             }
         }
     }
