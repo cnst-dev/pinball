@@ -15,7 +15,7 @@ namespace ConstantineSpace.Tools
         {
             if (GameManager.Instance.CurrentState == GameManager.GameState.InGame)
             {
-                transform.Rotate(_rotationSpeed);
+                transform.Rotate(_rotationSpeed*Time.deltaTime);
             }
         }
     }
