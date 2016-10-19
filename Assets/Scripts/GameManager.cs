@@ -10,8 +10,6 @@ namespace ConstantineSpace.PinBall
         private int _score;
         public bool UseAI;
 
-        public Rigidbody2D Ball;
-
         // All available game states.
         public enum GameState
         {

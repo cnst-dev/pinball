@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92b66e1bf013f44f9ec950901763d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ball: {fileID: 1690115595}
 --- !u!1 &559312324 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000010273420640, guid: c41730ab2cb31f94689d9828594037ad,
@@ -955,7 +956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d7f95cd29e54440a56042190f0e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: {x: 0, y: 0, z: 1}
+  _rotationSpeed: {x: 0, y: 0, z: 20}
 --- !u!1 &585838521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1516,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseAI: 0
-  Ball: {fileID: 1690115595}
 --- !u!114 &910718633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2887,7 +2887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d7f95cd29e54440a56042190f0e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: {x: 0, y: 0, z: -1}
+  _rotationSpeed: {x: 0, y: 0, z: -20}
 --- !u!1001 &1891905789
 Prefab:
   m_ObjectHideFlags: 0
