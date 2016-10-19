@@ -45,7 +45,7 @@ namespace ConstantineSpace.Tools
         /// </summary>
         protected void OnCreated()
         {
-
+            Debug.Log(IsCreated());
         }
 
         /// <summary>
@@ -53,7 +53,16 @@ namespace ConstantineSpace.Tools
         /// </summary>
         protected void OnDestroyed()
         {
+            Debug.Log(IsCreated());
+        }
 
+        /// <summary>
+        ///     Checks instance status.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsCreated()
+        {
+            return _instance != null;
         }
     }
 }
