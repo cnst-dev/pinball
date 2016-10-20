@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using ConstantineSpace.Tools;
 using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
-    public class Flipper : MonoBehaviour
+    public class Flipper : MonoBehaviour, ITouchHandler
     {
         private HingeJoint2D _hingeJoint2D;
 
@@ -16,12 +17,21 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        ///     Rotates up the flipper. Runs when a message is received.
+        ///     Rotates up the flipper.
         /// </summary>
-        private void OnTouch()
+        private void RotateUp()
         {
             _hingeJoint2D.useMotor = true;
             StartCoroutine(RotateDown());
+        }
+
+        /// <summary>
+        ///     Touch event receiver.
+        /// </summary>
+        /// <param name="touchTime">The touch time.</param>
+        public void OnTouched(float touchTime)
+        {
+            RotateUp();
         }
 
         /// <summary>

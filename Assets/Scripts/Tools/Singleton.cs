@@ -41,11 +41,11 @@ namespace ConstantineSpace.Tools
         }
 
         /// <summary>
-        ///     Use this method for overriding instead Awake(). Use DontDestroyOnLoad() for multiscenes access.
+        ///     Use this method for overriding instead Awake().
         /// </summary>
         protected void OnCreated()
         {
-            Debug.Log(IsCreated());
+
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ConstantineSpace.Tools
         /// </summary>
         protected void OnDestroyed()
         {
-            Debug.Log(IsCreated());
+
         }
 
         /// <summary>

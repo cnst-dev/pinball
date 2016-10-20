@@ -75,7 +75,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="state">The new state.</param>
         private void SetTouchSender(bool state)
         {
-            GetComponent<OnTouch>().enabled = state;
+            GetComponent<TouchManager>().enabled = state;
         }
 
         /// <summary>

@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace ConstantineSpace.Tools
 {
     /// <summary>
+    ///     Touch system interface.
+    /// </summary>
+    public interface ITouchHandler : IEventSystemHandler
+    {
+        void OnTouched(float touchTime);
+    }
+
+    /// <summary>
     ///     Sends messages for touched objects - flippers and launcher.
     /// </summary>
-    public class OnTouch : MonoBehaviour
+    public class TouchManager : MonoBehaviour
     {
         private float _startTime;
 
-        public void Update()
+        private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -20,10 +29,10 @@ namespace ConstantineSpace.Tools
                 var touchTime = Time.time - _startTime;
                 var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var hit = Physics2D.Raycast(position, Vector2.zero);
-                if (hit.collider != null && hit.transform.tag == "CanTouch")
-                {
-                    hit.transform.gameObject.SendMessage("OnTouch", touchTime);
-                }
+                if (hit.collider == null) return;
+
+                ExecuteEvents.Execute<ITouchHandler>(hit.collider.gameObject, null,
+                    (handler, data) => handler.OnTouched(touchTime));
             }
         }
     }

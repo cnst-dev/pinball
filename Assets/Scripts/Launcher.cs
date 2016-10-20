@@ -1,22 +1,15 @@
-﻿using UnityEngine;
+﻿using ConstantineSpace.Tools;
+using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
-    public class Launcher : MonoBehaviour
+    public class Launcher : MonoBehaviour, ITouchHandler
     {
         [Header("Config")]
         [SerializeField]
         private Rigidbody2D _ball;
         [SerializeField]
         private readonly float _force = 10.0f;
-
-        /// <summary>
-        ///     Runs when a message is received.
-        /// </summary>
-        private void OnTouch(float touchTime)
-        {
-            LaunchBall(touchTime);
-        }
 
         /// <summary>
         ///     Launches the ball.
@@ -26,6 +19,15 @@ namespace ConstantineSpace.PinBall
             touchTime = Mathf.Clamp(touchTime, 1.0f, 5.0f);
             _ball.AddForce(new Vector2(0.0f, touchTime*_force), ForceMode2D.Impulse);
             gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        ///     Touch event receiver.
+        /// </summary>
+        /// <param name="touchTime">The touch time.</param>
+        public void OnTouched(float touchTime)
+        {
+            LaunchBall(touchTime);
         }
     }
 }
