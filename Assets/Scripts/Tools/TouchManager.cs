@@ -12,7 +12,7 @@ namespace ConstantineSpace.Tools
     }
 
     /// <summary>
-    ///     Sends messages for touched objects - flippers and launcher.
+    ///     Checks touching and creates events.
     /// </summary>
     public class TouchManager : MonoBehaviour
     {

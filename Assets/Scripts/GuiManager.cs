@@ -6,26 +6,30 @@ namespace ConstantineSpace.PinBall
 {
     public class GuiManager : Singleton<GuiManager>
     {
+        [SerializeField]
+        private Text _bestScoreText;
+        [SerializeField]
+        private Text _lastScoreText;
 
         [SerializeField]
         // The menu background image.
         private Image _menuBackground;
 
-        [Header("Text objects")]
-        [SerializeField]
-        private Text _scoreText;
-        [SerializeField]
-        private Text _lastScoreText;
-        [SerializeField]
-        private Text _bestScoreText;
-
         // The menu background start color.
         private Color _menuBackgroundColor;
 
-        /// <summary>
-        ///     Initialization.
-        /// </summary>
-        public void Start()
+        [Header("Text objects")] [SerializeField] private Text _scoreText;
+
+        private void Awake()
+        {
+            GameManager.Instance.ScoreObserver.OnValueChanged += SetScoreText;
+            GameManager.Instance.GameStatusObserver.OnValueChanged += () =>
+            {
+                if (GameManager.Instance.GameStatusObserver.Value == GameManager.GameState.Menu) SetHomeScoreTexts();
+            };
+        }
+
+        private void Start()
         {
             // Save start background color
             _menuBackgroundColor = _menuBackground.color;
@@ -108,15 +112,18 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        ///     Sets the score text.
+        ///     Sets the score text in game.
         /// </summary>
-        /// <param name="newScore"> The new score.</param>
-        public void SetScoreText(int newScore)
+        private void SetScoreText()
         {
+            var newScore = GameManager.Instance.ScoreObserver.Value;
             _scoreText.text = newScore.ToString("0000");
         }
 
-        public void SetHomeScoreTexts()
+        /// <summary>
+        ///     Sets the score texts in menu.
+        /// </summary>
+        private void SetHomeScoreTexts()
         {
             _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
             _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());

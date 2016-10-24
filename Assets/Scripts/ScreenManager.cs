@@ -1,10 +1,8 @@
-﻿using ConstantineSpace.Tools;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
-    public class ScreenManager : Singleton<ScreenManager>
+    public class ScreenManager : MonoBehaviour
     {
         [Header("Screens")]
         [SerializeField]
@@ -15,10 +13,35 @@ namespace ConstantineSpace.PinBall
         // The current screen game object.
         private GameObject _currentScreen;
 
+        private void Awake()
+        {
+            GameManager.Instance.GameStatusObserver.OnValueChanged += SetScreen;
+        }
+
+        /// <summary>
+        ///     Sets the screen.
+        /// </summary>
+        private void SetScreen()
+        {
+            var state = GameManager.Instance.GameStatusObserver.Value;
+            switch (state)
+            {
+                case GameManager.GameState.Menu:
+                    SetHomeScreen();
+                    break;
+                case GameManager.GameState.InGame:
+                    SetGameScreen();
+                    break;
+                default:
+                    HideGameScreen();
+                    break;
+            }
+        }
+
         /// <summary>
         ///     Sets the Start screen.
         /// </summary>
-        public void SetHomeScreen()
+        private void SetHomeScreen()
         {
             GuiManager.Instance.SetScreenState(_homeScreen, true);
             if (_currentScreen != null)
@@ -32,7 +55,7 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Sets the Game screen.
         /// </summary>
-        public void SetGameScreen()
+        private void SetGameScreen()
         {
             HideCurrentScreen();
             GuiManager.Instance.FadeBackground(false);
@@ -43,7 +66,7 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Hides the Game screen.
         /// </summary>
-        public void HideGameScreen()
+        private void HideGameScreen()
         {
             GuiManager.Instance.SetScreenState(_gameScreen, false);
         }
@@ -51,7 +74,7 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Hide the current screen.
         /// </summary>
-        public void HideCurrentScreen()
+        private void HideCurrentScreen()
         {
             GuiManager.Instance.SetScreenState(_currentScreen, false);
             GuiManager.Instance.FadeBackground(false);

@@ -7,26 +7,27 @@ namespace ConstantineSpace.PinBall
 {
     public class GameManager : Singleton<GameManager>
     {
-        private int _score;
         public bool UseAI;
 
         // All available game states.
         public enum GameState
         {
+            Start,
             Menu,
             InGame
         }
 
-        // The current state of the game.
-        public GameState CurrentState { get; private set; }
+        public Observer<GameState> GameStatusObserver;
+        public Observer<int> ScoreObserver;
 
-        /// <summary>
-        ///     Initialization.
-        /// </summary>
+        public void Awake()
+        {
+            GameStatusObserver = new Observer<GameState>(GameState.Start);
+            ScoreObserver = new Observer<int>(0);
+        }
+
         private void Start()
         {
-            ScreenManager.Instance.SetHomeScreen();
-            GuiManager.Instance.SetHomeScoreTexts();
             SetGameState(GameState.Menu);
         }
 
@@ -37,27 +38,14 @@ namespace ConstantineSpace.PinBall
         public void StartLevel(bool useAI)
         {
             UseAI = useAI;
-            ScreenManager.Instance.SetGameScreen();
             SetGameState(GameState.InGame);
             SetTouchSender(!useAI);
-            _score = 0;
-            GuiManager.Instance.SetScoreText(_score);
+            ScoreObserver.Value = 0;
             if (useAI)
             {
                 StartCoroutine(RandomForceLaunch(0.5f));
-                
+
             }
-        }
-
-        /// <summary>
-        ///     Go to the Home screen.
-        /// </summary>
-        public void GoToHome()
-        {
-            ScreenManager.Instance.HideGameScreen();
-            ScreenManager.Instance.SetHomeScreen();
-            SetGameState(GameState.Menu);
-
         }
 
         /// <summary>
@@ -66,7 +54,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="state">The new state.</param>
         private void SetGameState(GameState state)
         {
-            CurrentState = state;
+            GameStatusObserver.Value = state;
         }
 
         /// <summary>
@@ -83,7 +71,7 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         public void EndLevel()
         {
-            ScoreManager.SaveScore(_score);
+            ScoreManager.SaveScore(ScoreObserver.Value);
             SceneManager.LoadScene("Main");
         }
 
@@ -93,8 +81,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="score">Additional score.</param>
         public void UpdateScore(int score)
         {
-            _score += score;
-            GuiManager.Instance.SetScoreText(_score);
+            ScoreObserver.Value += score;
         }
 
         /// <summary>
@@ -106,7 +93,7 @@ namespace ConstantineSpace.PinBall
             var touchTime = Random.Range(1.0f, 5.0f);
             yield return new WaitForSeconds(delay);
             FindObjectOfType<Launcher>().LaunchBall(touchTime);
-            
+
         }
     }
 }
