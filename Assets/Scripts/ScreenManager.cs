@@ -13,9 +13,17 @@ namespace ConstantineSpace.PinBall
         // The current screen game object.
         private GameObject _currentScreen;
 
-        private void Awake()
+        private GuiManager _guiManager;
+
+        private void OnEnable()
         {
+            _guiManager = GetComponent<GuiManager>();
             GameManager.Instance.GameStatusObserver.OnValueChanged += SetScreen;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.GameStatusObserver.OnValueChanged -= SetScreen;
         }
 
         /// <summary>
@@ -43,11 +51,11 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void SetHomeScreen()
         {
-            GuiManager.Instance.SetScreenState(_homeScreen, true);
+            _guiManager.SetScreenState(_homeScreen, true);
             if (_currentScreen != null)
             {
                 HideCurrentScreen();
-                GuiManager.Instance.FadeBackground(true);
+                _guiManager.FadeBackground(true);
             }
             _currentScreen = _homeScreen;
         }
@@ -58,8 +66,8 @@ namespace ConstantineSpace.PinBall
         private void SetGameScreen()
         {
             HideCurrentScreen();
-            GuiManager.Instance.FadeBackground(false);
-            GuiManager.Instance.SetScreenState(_gameScreen, true, 0);
+            _guiManager.FadeBackground(false);
+            _guiManager.SetScreenState(_gameScreen, true, 0);
             _currentScreen = _gameScreen;
         }
 
@@ -68,7 +76,7 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void HideGameScreen()
         {
-            GuiManager.Instance.SetScreenState(_gameScreen, false);
+            _guiManager.SetScreenState(_gameScreen, false);
         }
 
         /// <summary>
@@ -76,8 +84,8 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void HideCurrentScreen()
         {
-            GuiManager.Instance.SetScreenState(_currentScreen, false);
-            GuiManager.Instance.FadeBackground(false);
+            _guiManager.SetScreenState(_currentScreen, false);
+            _guiManager.FadeBackground(false);
             _currentScreen = _gameScreen;
         }
     }

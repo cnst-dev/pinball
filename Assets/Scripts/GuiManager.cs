@@ -4,29 +4,33 @@ using UnityEngine.UI;
 
 namespace ConstantineSpace.PinBall
 {
-    public class GuiManager : Singleton<GuiManager>
+    public class GuiManager : MonoBehaviour
     {
+        [SerializeField]
+        // The menu background image.
+        private Image _menuBackground;
+
+        [Header("Text objects")]
+        [SerializeField]
+        private Text _scoreText;
         [SerializeField]
         private Text _bestScoreText;
         [SerializeField]
         private Text _lastScoreText;
 
-        [SerializeField]
-        // The menu background image.
-        private Image _menuBackground;
-
         // The menu background start color.
         private Color _menuBackgroundColor;
 
-        [Header("Text objects")] [SerializeField] private Text _scoreText;
-
-        private void Awake()
+        private void OnEnable()
         {
             GameManager.Instance.ScoreObserver.OnValueChanged += SetScoreText;
-            GameManager.Instance.GameStatusObserver.OnValueChanged += () =>
-            {
-                if (GameManager.Instance.GameStatusObserver.Value == GameManager.GameState.Menu) SetHomeScoreTexts();
-            };
+            GameManager.Instance.GameStatusObserver.OnValueChanged += SetHomeScoreTexts;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.ScoreObserver.OnValueChanged -= SetScoreText;
+            GameManager.Instance.GameStatusObserver.OnValueChanged -= SetHomeScoreTexts;
         }
 
         private void Start()
@@ -125,6 +129,7 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void SetHomeScoreTexts()
         {
+            if (GameManager.Instance.GameStatusObserver.Value != GameManager.GameState.Menu) return;
             _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
             _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());
         }
