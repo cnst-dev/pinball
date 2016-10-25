@@ -23,7 +23,7 @@ namespace ConstantineSpace.PinBall
         public Observer<GameState> GameStatusObserver;
         public Observer<int> ScoreObserver;
 
-        public void Awake()
+        public override void OnCreated()
         {
             GameStatusObserver = new Observer<GameState>(GameState.Start);
             ScoreObserver = new Observer<int>(0);
