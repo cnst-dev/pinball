@@ -118,18 +118,17 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Sets the score text in game.
         /// </summary>
-        private void SetScoreText()
+        private void SetScoreText(object sender, ChangedValueArgs<int> args)
         {
-            var newScore = GameManager.Instance.ScoreObserver.Value;
-            _scoreText.text = newScore.ToString("0000");
+            _scoreText.text = args.Value.ToString("0000");
         }
 
         /// <summary>
         ///     Sets the score texts in menu.
         /// </summary>
-        private void SetHomeScoreTexts()
+        private void SetHomeScoreTexts(object sender, ChangedValueArgs<GameState> args)
         {
-            if (GameManager.Instance.GameStatusObserver.Value != GameManager.GameState.Menu) return;
+            if ((args.Value != GameState.Menu)) return;
             _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
             _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());
         }

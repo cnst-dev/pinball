@@ -1,21 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using ConstantineSpace.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace ConstantineSpace.PinBall
 {
+
+    // All available game states.
+    public enum GameState
+    {
+        Start,
+        Menu,
+        InGame
+    }
+
     public class GameManager : Singleton<GameManager>
     {
         public bool UseAI;
-
-        // All available game states.
-        public enum GameState
-        {
-            Start,
-            Menu,
-            InGame
-        }
 
         public Observer<GameState> GameStatusObserver;
         public Observer<int> ScoreObserver;
@@ -44,7 +47,6 @@ namespace ConstantineSpace.PinBall
             if (useAI)
             {
                 StartCoroutine(RandomForceLaunch(0.5f));
-
             }
         }
 

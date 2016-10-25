@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using ConstantineSpace.Tools;
+using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
@@ -15,9 +17,13 @@ namespace ConstantineSpace.PinBall
 
         private GuiManager _guiManager;
 
-        private void OnEnable()
+        private void Awake()
         {
             _guiManager = GetComponent<GuiManager>();
+        }
+
+        private void OnEnable()
+        {
             GameManager.Instance.GameStatusObserver.OnValueChanged += SetScreen;
         }
 
@@ -29,15 +35,14 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Sets the screen.
         /// </summary>
-        private void SetScreen()
+        private void SetScreen(object sender, ChangedValueArgs<GameState> args)
         {
-            var state = GameManager.Instance.GameStatusObserver.Value;
-            switch (state)
+            switch (args.Value)
             {
-                case GameManager.GameState.Menu:
+                case GameState.Menu:
                     SetHomeScreen();
                     break;
-                case GameManager.GameState.InGame:
+                case GameState.InGame:
                     SetGameScreen();
                     break;
                 default:
