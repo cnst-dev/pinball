@@ -13,7 +13,7 @@ namespace ConstantineSpace.Tools
 
         private void Update()
         {
-            if (GameManager.Instance.GameStatusObserver.Value == GameState.InGame)
+            if (GameManager.Instance.GameStatusObserver.Value == GameState.Game)
             {
                 transform.Rotate(_rotationSpeed*Time.deltaTime);
             }

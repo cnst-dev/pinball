@@ -12,8 +12,8 @@ namespace ConstantineSpace.PinBall
     public enum GameState
     {
         Start,
-        Menu,
-        InGame
+        Home,
+        Game
     }
 
     public class GameManager : Singleton<GameManager>
@@ -23,15 +23,23 @@ namespace ConstantineSpace.PinBall
         public Observer<GameState> GameStatusObserver;
         public Observer<int> ScoreObserver;
 
+        public StateMachine StateMachine;
+
         public override void OnCreated()
         {
             GameStatusObserver = new Observer<GameState>(GameState.Start);
             ScoreObserver = new Observer<int>(0);
+            StateMachine = new StateMachine();
+            StateMachine.AddState(GameState.Start);
+            StateMachine.AddState(GameState.Home);
+            StateMachine.AddState(GameState.Game);
+            StateMachine.ChangeState(GameState.Start);
         }
 
         private void Start()
         {
-            SetGameState(GameState.Menu);
+            SetGameState(GameState.Home);
+            StateMachine.ChangeState(GameState.Home);
         }
 
         /// <summary>
@@ -41,7 +49,8 @@ namespace ConstantineSpace.PinBall
         public void StartLevel(bool useAI)
         {
             UseAI = useAI;
-            SetGameState(GameState.InGame);
+            StateMachine.ChangeState(GameState.Game);
+            SetGameState(GameState.Game);
             SetTouchSender(!useAI);
             ScoreObserver.Value = 0;
             if (useAI)

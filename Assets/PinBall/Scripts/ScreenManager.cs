@@ -1,5 +1,4 @@
-﻿using System;
-using ConstantineSpace.Tools;
+﻿using ConstantineSpace.Tools;
 using UnityEngine;
 
 namespace ConstantineSpace.PinBall
@@ -25,6 +24,8 @@ namespace ConstantineSpace.PinBall
         private void OnEnable()
         {
             GameManager.Instance.GameStatusObserver.OnValueChanged += SetScreen;
+            GameManager.Instance.StateMachine.OnStart += () => Debug.Log("Start " + GameManager.Instance.StateMachine.CurrentState.StateHolder);
+            GameManager.Instance.StateMachine.OnStop += () => Debug.Log("Stop " + GameManager.Instance.StateMachine.CurrentState.StateHolder);
         }
 
         private void OnDisable()
@@ -39,10 +40,10 @@ namespace ConstantineSpace.PinBall
         {
             switch (args.Value)
             {
-                case GameState.Menu:
+                case GameState.Home:
                     SetHomeScreen();
                     break;
-                case GameState.InGame:
+                case GameState.Game:
                     SetGameScreen();
                     break;
                 default:

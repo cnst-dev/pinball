@@ -128,7 +128,7 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         private void SetHomeScoreTexts(object sender, ChangedValueArgs<GameState> args)
         {
-            if ((args.Value != GameState.Menu)) return;
+            if ((args.Value != GameState.Home)) return;
             _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
             _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());
         }
