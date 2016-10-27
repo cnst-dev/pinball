@@ -1,98 +1,55 @@
-﻿using ConstantineSpace.Tools;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
     public class ScreenManager : MonoBehaviour
     {
-        [Header("Screens")]
+        [Header("MenuScreens")]
         [SerializeField]
         private GameObject _homeScreen;
         [SerializeField]
         private GameObject _gameScreen;
 
-        // The current screen game object.
-        private GameObject _currentScreen;
+
+        private Dictionary<string, GameObject> _menuScreens;
 
         private GuiManager _guiManager;
 
         private void Awake()
         {
+            _menuScreens = new Dictionary<string, GameObject>
+            {
+                {_homeScreen.name, _homeScreen}
+            };
             _guiManager = GetComponent<GuiManager>();
         }
 
         private void OnEnable()
         {
-            GameManager.Instance.GameStatusObserver.OnValueChanged += SetScreen;
-            GameManager.Instance.StateMachine.OnStart += () => Debug.Log("Start " + GameManager.Instance.StateMachine.CurrentState.StateHolder);
-            GameManager.Instance.StateMachine.OnStop += () => Debug.Log("Stop " + GameManager.Instance.StateMachine.CurrentState.StateHolder);
+            GameManager.Instance.OnStartStateSet += SetScreenOn;
+            GameManager.Instance.OnEndStateSet += SetScreenOff;
+        }
+
+        private void SetScreenOn()
+        {
+            if (!_menuScreens.ContainsKey(GameManager.Instance.CurrentState + "Screen")) return;
+            _guiManager.ScreenGoIn(_menuScreens[GameManager.Instance.CurrentState + "Screen"], 0.3f, 0.0f);
+            _gameScreen.SetActive(false);
+        }
+
+        private void SetScreenOff()
+        {
+            if (!_menuScreens.ContainsKey(GameManager.Instance.CurrentState + "Screen")) return;
+            _guiManager.ScreenGoOut(_menuScreens[GameManager.Instance.CurrentState + "Screen"], 0.3f, 0.0f);
+            _gameScreen.SetActive(true);
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.GameStatusObserver.OnValueChanged -= SetScreen;
+            GameManager.Instance.OnStartStateSet -= SetScreenOn;
+            GameManager.Instance.OnEndStateSet -= SetScreenOff;
         }
 
-        /// <summary>
-        ///     Sets the screen.
-        /// </summary>
-        private void SetScreen(object sender, ChangedValueArgs<GameState> args)
-        {
-            switch (args.Value)
-            {
-                case GameState.Home:
-                    SetHomeScreen();
-                    break;
-                case GameState.Game:
-                    SetGameScreen();
-                    break;
-                default:
-                    HideGameScreen();
-                    break;
-            }
-        }
-
-        /// <summary>
-        ///     Sets the Start screen.
-        /// </summary>
-        private void SetHomeScreen()
-        {
-            _guiManager.SetScreenState(_homeScreen, true);
-            if (_currentScreen != null)
-            {
-                HideCurrentScreen();
-                _guiManager.FadeBackground(true);
-            }
-            _currentScreen = _homeScreen;
-        }
-
-        /// <summary>
-        ///     Sets the Game screen.
-        /// </summary>
-        private void SetGameScreen()
-        {
-            HideCurrentScreen();
-            _guiManager.FadeBackground(false);
-            _guiManager.SetScreenState(_gameScreen, true, 0);
-            _currentScreen = _gameScreen;
-        }
-
-        /// <summary>
-        ///     Hides the Game screen.
-        /// </summary>
-        private void HideGameScreen()
-        {
-            _guiManager.SetScreenState(_gameScreen, false);
-        }
-
-        /// <summary>
-        ///     Hide the current screen.
-        /// </summary>
-        private void HideCurrentScreen()
-        {
-            _guiManager.SetScreenState(_currentScreen, false);
-            _guiManager.FadeBackground(false);
-            _currentScreen = _gameScreen;
-        }
     }
 }

@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 namespace ConstantineSpace.PinBall
 {
-
     // All available game states.
     public enum GameState
     {
@@ -19,27 +18,22 @@ namespace ConstantineSpace.PinBall
     public class GameManager : Singleton<GameManager>
     {
         public bool UseAI;
-
-        public Observer<GameState> GameStatusObserver;
         public Observer<int> ScoreObserver;
 
-        public StateMachine StateMachine;
+        public GameState CurrentState { get; private set; }
+
+        public Action OnStartStateSet;
+        public Action OnEndStateSet;
 
         public override void OnCreated()
         {
-            GameStatusObserver = new Observer<GameState>(GameState.Start);
             ScoreObserver = new Observer<int>(0);
-            StateMachine = new StateMachine();
-            StateMachine.AddState(GameState.Start);
-            StateMachine.AddState(GameState.Home);
-            StateMachine.AddState(GameState.Game);
-            StateMachine.ChangeState(GameState.Start);
+            SetState(GameState.Start);
         }
 
         private void Start()
         {
-            SetGameState(GameState.Home);
-            StateMachine.ChangeState(GameState.Home);
+            SetState(GameState.Home);
         }
 
         /// <summary>
@@ -49,23 +43,13 @@ namespace ConstantineSpace.PinBall
         public void StartLevel(bool useAI)
         {
             UseAI = useAI;
-            StateMachine.ChangeState(GameState.Game);
-            SetGameState(GameState.Game);
+            SetState(GameState.Game);
             SetTouchSender(!useAI);
             ScoreObserver.Value = 0;
             if (useAI)
             {
                 StartCoroutine(RandomForceLaunch(0.5f));
             }
-        }
-
-        /// <summary>
-        ///     Sets the game state.
-        /// </summary>
-        /// <param name="state">The new state.</param>
-        private void SetGameState(GameState state)
-        {
-            GameStatusObserver.Value = state;
         }
 
         /// <summary>
@@ -105,6 +89,24 @@ namespace ConstantineSpace.PinBall
             yield return new WaitForSeconds(delay);
             FindObjectOfType<Launcher>().LaunchBall(touchTime);
 
+        }
+
+        /// <summary>
+        ///     Sets the state.
+        /// </summary>
+        /// <param name="newState"> The new state.</param>
+        private void SetState(GameState newState)
+        {
+            if (OnEndStateSet != null)
+            {
+                OnEndStateSet();
+            }
+            CurrentState = newState;
+
+            if (OnStartStateSet != null)
+            {
+                OnStartStateSet();
+            }
         }
     }
 }

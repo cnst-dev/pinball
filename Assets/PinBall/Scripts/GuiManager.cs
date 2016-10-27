@@ -24,13 +24,13 @@ namespace ConstantineSpace.PinBall
         private void OnEnable()
         {
             GameManager.Instance.ScoreObserver.OnValueChanged += SetScoreText;
-            GameManager.Instance.GameStatusObserver.OnValueChanged += SetHomeScoreTexts;
+            GameManager.Instance.OnStartStateSet += SetHomeScoreTexts;
         }
 
         private void OnDisable()
         {
             GameManager.Instance.ScoreObserver.OnValueChanged -= SetScoreText;
-            GameManager.Instance.GameStatusObserver.OnValueChanged -= SetHomeScoreTexts;
+            GameManager.Instance.OnStartStateSet -= SetHomeScoreTexts;
         }
 
         private void Start()
@@ -40,32 +40,15 @@ namespace ConstantineSpace.PinBall
         }
 
         /// <summary>
-        ///     Sets the screen active.
-        /// </summary>
-        /// <param name="screen">The screen game object.</param>
-        /// <param name="state">The new state of the screen. True - active, false - inactive.</param>
-        /// <param name="duration">The duration of the animation.</param>
-        public void SetScreenState(GameObject screen, bool state, float duration = 0.3f)
-        {
-            if (state)
-            {
-                ScreenGoIn(screen, duration, 0);
-            }
-            else
-            {
-                ScreenGoOut(screen, duration, 0);
-            }
-        }
-
-        /// <summary>
         ///     The screen scale animation from 1 to 0.
         /// </summary>
         /// <param name="screen">The screen game object for the scaling animation.</param>
         /// <param name="duration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation.</param>
-        private void ScreenGoOut(GameObject screen, float duration, float delay)
+        public void ScreenGoOut(GameObject screen, float duration, float delay)
         {
             screen.transform.localScale = Vector3.one;
+            FadeBackground(false);
             StartCoroutine(SimpleAnimator.ScaleAnimation(screen, 0, duration, delay, () =>
             {
                 screen.transform.localScale = Vector3.zero;
@@ -79,7 +62,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="screen">The screen game object for the scaling animation.</param>
         /// <param name="duration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation.</param>
-        private void ScreenGoIn(GameObject screen, float duration, float delay)
+        public void ScreenGoIn(GameObject screen, float duration, float delay)
         {
             screen.transform.localScale = Vector3.zero;
             StartCoroutine(SimpleAnimator.ScaleAnimation(screen, 1, duration, delay, () =>
@@ -94,13 +77,9 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         /// <param name="state">Fade in if true, fade out if false.</param>
         /// <param name="duration">The duration of the animation.</param>
-        public void FadeBackground(bool state, float duration = 0.5f)
+        private void FadeBackground(bool state, float duration = 0.5f)
         {
-            if (_menuBackground == null)
-            {
-                return;
-            }
-
+            if (_menuBackground == null) return;
             _menuBackground.gameObject.SetActive(true);
 
             if (state)
@@ -126,9 +105,9 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Sets the score texts in menu.
         /// </summary>
-        private void SetHomeScoreTexts(object sender, ChangedValueArgs<GameState> args)
+        private void SetHomeScoreTexts()
         {
-            if ((args.Value != GameState.Home)) return;
+            if (GameManager.Instance.CurrentState != GameState.Home) return;
             _bestScoreText.text = string.Format("Best: {0}", ScoreManager.GetBestScore());
             _lastScoreText.text = string.Format("Last: {0}", ScoreManager.GetLastScore());
         }
