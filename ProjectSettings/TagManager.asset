@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CanTouch
   - Ball
+  - Menu
+  - Game
   layers:
   - Default
   - TransparentFX

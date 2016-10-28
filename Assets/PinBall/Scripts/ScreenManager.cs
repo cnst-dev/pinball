@@ -5,24 +5,23 @@ namespace ConstantineSpace.PinBall
 {
     public class ScreenManager : MonoBehaviour
     {
-        [Header("MenuScreens")]
-        [SerializeField]
-        private GameObject _homeScreen;
+        [Header("Screens")]
         [SerializeField]
         private GameObject _gameScreen;
+        public GameObject[] MenuScreens;
 
-
-        private Dictionary<string, GameObject> _menuScreens;
+        private Dictionary<string, GameObject> _menuScreens = new Dictionary<string, GameObject>();
 
         private GuiManager _guiManager;
 
         private void Awake()
         {
-            _menuScreens = new Dictionary<string, GameObject>
-            {
-                {_homeScreen.name, _homeScreen}
-            };
             _guiManager = GetComponent<GuiManager>();
+
+            foreach (var screen in MenuScreens)
+            {
+                _menuScreens.Add(screen.name, screen);
+            }
         }
 
         private void OnEnable()

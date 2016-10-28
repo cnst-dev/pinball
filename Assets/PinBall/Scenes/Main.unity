@@ -1605,7 +1605,7 @@ GameObject:
   - 114: {fileID: 1039910706}
   m_Layer: 5
   m_Name: GameScreen
-  m_TagString: Untagged
+  m_TagString: Game
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1616,7 +1616,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1039910704}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1675,7 +1675,7 @@ GameObject:
   - 114: {fileID: 1053925783}
   m_Layer: 5
   m_Name: HomeScreen
-  m_TagString: Untagged
+  m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1687,7 +1687,7 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1053925779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3048,8 +3048,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdf5e55fbf72164cb0cf8bd17065a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _homeScreen: {fileID: 1053925779}
   _gameScreen: {fileID: 1039910704}
+  MenuScreens:
+  - {fileID: 1053925779}
 --- !u!1001 &1989567511
 Prefab:
   m_ObjectHideFlags: 0
