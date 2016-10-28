@@ -40,7 +40,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!GameManager.Instance.UseAI) return;
+            if (!GameManager.Instance.UseAi) return;
             _hingeJoint2D.useMotor = true;
             StartCoroutine(RotateDown());
         }

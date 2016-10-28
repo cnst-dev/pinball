@@ -801,18 +801,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 465556105}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1924685874}
-        m_MethodName: StartLevel
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &465556105
@@ -1109,18 +1098,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 639562176}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1924685874}
-        m_MethodName: StartLevel
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &639562176
@@ -1603,6 +1581,7 @@ GameObject:
   - 224: {fileID: 1039910705}
   - 222: {fileID: 1039910707}
   - 114: {fileID: 1039910706}
+  - 114: {fileID: 1039910708}
   m_Layer: 5
   m_Name: GameScreen
   m_TagString: Game
@@ -1662,6 +1641,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1039910704}
+--- !u!114 &1039910708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039910704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283e95d49189c4e469984f7cc90622c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreText: {fileID: 1094599003}
 --- !u!1 &1053925779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,6 +1664,7 @@ GameObject:
   - 222: {fileID: 1053925782}
   - 114: {fileID: 1053925781}
   - 114: {fileID: 1053925783}
+  - 114: {fileID: 1053925784}
   m_Layer: 5
   m_Name: HomeScreen
   m_TagString: Menu
@@ -1753,6 +1745,22 @@ MonoBehaviour:
   m_EffectColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 0.9490196}
   m_EffectDistance: {x: 0, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &1053925784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053925779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d13a928337f3a043a558dbef0aff4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuBackground: {fileID: 1496302725}
+  _startButton: {fileID: 639562175}
+  _aiButton: {fileID: 465556104}
+  _bestScoreText: {fileID: 1804624120}
+  _lastScoreText: {fileID: 585838523}
 --- !u!1001 &1055393728
 Prefab:
   m_ObjectHideFlags: 0
@@ -2977,8 +2985,6 @@ GameObject:
   - 4: {fileID: 1924685871}
   - 114: {fileID: 1924685874}
   - 114: {fileID: 1924685873}
-  - 114: {fileID: 1924685872}
-  - 114: {fileID: 1924685875}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2999,21 +3005,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!114 &1924685872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1924685870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6614a744c398730439e8a8ce375771ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _menuBackground: {fileID: 1496302725}
-  _scoreText: {fileID: 1094599003}
-  _bestScoreText: {fileID: 1804624120}
-  _lastScoreText: {fileID: 585838523}
 --- !u!114 &1924685873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3036,21 +3027,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e81bf1d335c8534c8112c9018a92e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseAI: 0
---- !u!114 &1924685875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1924685870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfdf5e55fbf72164cb0cf8bd17065a54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameScreen: {fileID: 1039910704}
-  MenuScreens:
-  - {fileID: 1053925779}
+  UseAi: 0
+  HomeScreen: {fileID: 1053925784}
+  GameScreen: {fileID: 1039910708}
 --- !u!1001 &1989567511
 Prefab:
   m_ObjectHideFlags: 0

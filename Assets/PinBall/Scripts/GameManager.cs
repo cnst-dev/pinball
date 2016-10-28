@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using ConstantineSpace.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,36 +16,45 @@ namespace ConstantineSpace.PinBall
 
     public class GameManager : Singleton<GameManager>
     {
-        public bool UseAI;
+        public bool UseAi;
         public Observer<int> ScoreObserver;
 
-        public GameState CurrentState { get; private set; }
+        public HomeScreen HomeScreen;
+        public GameScreen GameScreen;
 
-        public Action OnStartStateSet;
-        public Action OnEndStateSet;
+        public StateMachine<GameState> StateMachine;
 
         public override void OnCreated()
         {
             ScoreObserver = new Observer<int>(0);
-            SetState(GameState.Start);
+
+            StateMachine = new StateMachine<GameState>();
+            StateMachine.AddState(GameState.Start, () => Debug.Log("Start State ON"), () => Debug.Log("Start State OFF"));
+            StateMachine.AddState(GameState.Home, HomeScreen.StartScreen, HomeScreen.StopScreen);
+            StateMachine.AddState(GameState.Game, GameScreen.StartScreen, GameScreen.StopScreen);
+
+            StateMachine.SetState(GameState.Start);
         }
 
         private void Start()
         {
-            SetState(GameState.Home);
+            StateMachine.SetState(GameState.Home);
+
+            HomeScreen.StartButton += () => StartLevel(false);
+            HomeScreen.AiButton += () => StartLevel(true);
         }
 
         /// <summary>
-        ///     Start the level or gameplay.
+        ///     Start the level manually.
         /// </summary>
-        /// <param name="useAI">True for AI mode.</param>
-        public void StartLevel(bool useAI)
+        /// <param name="useAi">True for AI mode.</param>
+        private void StartLevel(bool useAi)
         {
-            UseAI = useAI;
-            SetState(GameState.Game);
-            SetTouchSender(!useAI);
+            UseAi = useAi;
+            StateMachine.SetState(GameState.Game);
+            SetTouchSender(!useAi);
             ScoreObserver.Value = 0;
-            if (useAI)
+            if (useAi)
             {
                 StartCoroutine(RandomForceLaunch(0.5f));
             }
@@ -85,28 +93,9 @@ namespace ConstantineSpace.PinBall
         /// <returns></returns>
         private IEnumerator RandomForceLaunch(float delay)
         {
-            var touchTime = Random.Range(1.0f, 5.0f);
             yield return new WaitForSeconds(delay);
+            var touchTime = Random.Range(1.0f, 5.0f);
             FindObjectOfType<Launcher>().LaunchBall(touchTime);
-
-        }
-
-        /// <summary>
-        ///     Sets the state.
-        /// </summary>
-        /// <param name="newState"> The new state.</param>
-        private void SetState(GameState newState)
-        {
-            if (OnEndStateSet != null)
-            {
-                OnEndStateSet();
-            }
-            CurrentState = newState;
-
-            if (OnStartStateSet != null)
-            {
-                OnStartStateSet();
-            }
         }
     }
 }
