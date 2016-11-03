@@ -11,34 +11,58 @@ namespace ConstantineSpace.PinBall
     {
         Start,
         Home,
-        Game
+        Game,
+        End
     }
 
-    public class GameManager : Singleton<GameManager>
+    public class GameData : ScriptableObject
     {
-        public bool UseAi;
-        public Observer<int> ScoreObserver;
+        public Observer<int> ScoreObserver = new Observer<int>(0);
 
+        public StateMachine<GameState> StateMachine = new StateMachine<GameState>();
+
+        public bool UseAi;
+
+        /// <summary>
+        ///     Updates score.
+        /// </summary>
+        /// <param name="score">Additional score.</param>
+        public void UpdateScore(int score)
+        {
+            ScoreObserver.Value += score;
+        }
+
+        /// <summary>
+        ///     Returns the current score.
+        /// </summary>
+        /// <returns>The current score.</returns>
+        public int GetScore()
+        {
+            return ScoreObserver.Value;
+        }
+    }
+
+    public class GameManager : MonoBehaviour
+    {
         public HomeScreen HomeScreen;
         public GameScreen GameScreen;
 
-        public StateMachine<GameState> StateMachine;
+        private GameData _gameData;
 
-        public override void OnCreated()
+        private void Awake()
         {
-            ScoreObserver = new Observer<int>(0);
+            _gameData = ScriptableObject.CreateInstance<GameData>();
+            _gameData.StateMachine.AddState(GameState.Start, () => Debug.Log("Start State ON"), () => Debug.Log("Start State OFF"));
+            _gameData.StateMachine.AddState(GameState.Home, HomeScreen.StartScreen, HomeScreen.StopScreen);
+            _gameData.StateMachine.AddState(GameState.Game, () => GameScreen.StartScreen(_gameData), () => GameScreen.StopScreen(_gameData));
+            _gameData.StateMachine.AddState(GameState.End, EndLevel, null);
 
-            StateMachine = new StateMachine<GameState>();
-            StateMachine.AddState(GameState.Start, () => Debug.Log("Start State ON"), () => Debug.Log("Start State OFF"));
-            StateMachine.AddState(GameState.Home, HomeScreen.StartScreen, HomeScreen.StopScreen);
-            StateMachine.AddState(GameState.Game, GameScreen.StartScreen, GameScreen.StopScreen);
-
-            StateMachine.SetState(GameState.Start);
+            _gameData.StateMachine.SetState(GameState.Start);
         }
 
         private void Start()
         {
-            StateMachine.SetState(GameState.Home);
+            _gameData.StateMachine.SetState(GameState.Home);
 
             HomeScreen.StartButton += () => StartLevel(false);
             HomeScreen.AiButton += () => StartLevel(true);
@@ -50,10 +74,10 @@ namespace ConstantineSpace.PinBall
         /// <param name="useAi">True for AI mode.</param>
         private void StartLevel(bool useAi)
         {
-            UseAi = useAi;
-            StateMachine.SetState(GameState.Game);
+            _gameData.UseAi = useAi;
+            _gameData.StateMachine.SetState(GameState.Game);
             SetTouchSender(!useAi);
-            ScoreObserver.Value = 0;
+            _gameData.UpdateScore(0);
             if (useAi)
             {
                 StartCoroutine(RandomForceLaunch(0.5f));
@@ -74,17 +98,8 @@ namespace ConstantineSpace.PinBall
         /// </summary>
         public void EndLevel()
         {
-            ScoreManager.SaveScore(ScoreObserver.Value);
+            ScoreManager.SaveScore(_gameData.GetScore());
             SceneManager.LoadScene("Main");
-        }
-
-        /// <summary>
-        ///     Updates score.
-        /// </summary>
-        /// <param name="score">Additional score.</param>
-        public void UpdateScore(int score)
-        {
-            ScoreObserver.Value += score;
         }
 
         /// <summary>

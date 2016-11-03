@@ -13,18 +13,18 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Starts the screen.
         /// </summary>
-        public void StartScreen()
+        public void StartScreen(GameData gameData)
         {
-            GameManager.Instance.ScoreObserver.OnValueChanged += SetScoreText;
+            gameData.ScoreObserver.OnValueChanged += SetScoreText;
             gameObject.SetActive(true);
         }
 
         /// <summary>
         ///     Stops the screen.
         /// </summary>
-        public void StopScreen()
+        public void StopScreen(GameData gameData)
         {
-            GameManager.Instance.ScoreObserver.OnValueChanged -= SetScoreText;
+            gameData.ScoreObserver.OnValueChanged -= SetScoreText;
             gameObject.SetActive(false);
         }
 

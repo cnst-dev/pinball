@@ -8,11 +8,14 @@ namespace ConstantineSpace.PinBall
     {
         private HingeJoint2D _hingeJoint2D;
 
+        private GameData _gameData;
+
         /// <summary>
         ///     Initialization.
         /// </summary>
         private void Start()
         {
+            _gameData = FindObjectOfType<GameData>();
             _hingeJoint2D = GetComponent<HingeJoint2D>();
         }
 
@@ -40,7 +43,7 @@ namespace ConstantineSpace.PinBall
         /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!GameManager.Instance.UseAi) return;
+            if (!_gameData.UseAi) return;
             _hingeJoint2D.useMotor = true;
             StartCoroutine(RotateDown());
         }

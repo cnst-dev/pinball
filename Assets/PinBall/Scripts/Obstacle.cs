@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ConstantineSpace.PinBall
 {
@@ -7,6 +8,13 @@ namespace ConstantineSpace.PinBall
         [SerializeField]
         private int _bonus;
 
+        private GameData _gameData;
+
+        private void Start()
+        {
+            _gameData = FindObjectOfType<GameData>();
+        }
+
         /// <summary>
         ///     Works when the ball contacts the obstacle.
         /// </summary>
@@ -14,17 +22,17 @@ namespace ConstantineSpace.PinBall
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.name != "Ball") return;
-            GameManager.Instance.UpdateScore(_bonus);
+            _gameData.UpdateScore(_bonus);
         }
 
         /// <summary>
-        ///     Works when the ball enters the footer border.
+        ///     Works when the ball contacts the footer border.
         /// </summary>
         /// <param name="collision"></param>
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.name != "Ball") return;
-            GameManager.Instance.EndLevel();
+            _gameData.StateMachine.SetState(GameState.End);
         }
     }
 }

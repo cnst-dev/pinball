@@ -11,11 +11,18 @@ namespace ConstantineSpace.Tools
         [SerializeField]
         private Vector3 _rotationSpeed = new Vector3(0.0f, 0.0f, 5.0f);
 
+        private GameData _gameData;
+
+        private void Start()
+        {
+            _gameData = FindObjectOfType<GameData>();
+        }
+
         private void Update()
         {
-            if (GameManager.Instance.StateMachine.CurrentState == GameState.Game)
+            if (_gameData.StateMachine.CurrentState == GameState.Game)
             {
-                transform.Rotate(_rotationSpeed*Time.deltaTime);
+                transform.Rotate(_rotationSpeed * Time.deltaTime);
             }
         }
     }
