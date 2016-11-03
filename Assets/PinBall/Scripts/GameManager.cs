@@ -17,16 +17,16 @@ namespace ConstantineSpace.PinBall
 
     public class GameData : ScriptableObject
     {
-        public Observer<int> ScoreObserver = new Observer<int>(0);
+        public readonly Observer<int> ScoreObserver = new Observer<int>(0);
 
-        public StateMachine<GameState> StateMachine = new StateMachine<GameState>();
+        public readonly StateMachine<GameState> StateMachine = new StateMachine<GameState>();
 
         public bool UseAi;
 
         /// <summary>
         ///     Updates score.
         /// </summary>
-        /// <param name="score">Additional score.</param>
+        /// <param name="score"> An additional score.</param>
         public void UpdateScore(int score)
         {
             ScoreObserver.Value += score;
@@ -96,7 +96,7 @@ namespace ConstantineSpace.PinBall
         /// <summary>
         ///     Makes level end.
         /// </summary>
-        public void EndLevel()
+        private void EndLevel()
         {
             ScoreManager.SaveScore(_gameData.GetScore());
             SceneManager.LoadScene("Main");
